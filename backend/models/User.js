@@ -1,5 +1,6 @@
 const mongoose=require("mongoose")
 const userSchema=mongoose.Schema({
+    photo:{data:Buffer,contentType:String},
     first_name:{type:String,required:true},
     last_name:{type:String,required:true},
     role:{type:String,required:true},
@@ -9,4 +10,4 @@ const userSchema=mongoose.Schema({
     pw:{type:String,required:true},
 
 },{timestapms:true})
-module.exports=mongoose.Model("User",userSchema);
+module.exports=mongoose.model("User",userSchema);

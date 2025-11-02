@@ -6,6 +6,8 @@ const PORT=process.env.PORT || 3000
 const app=express()
 app.use(express.json())
 app.use(cors())
+const userRoutes=require("./routes/userRoutes")
+app.use("/API/user",userRoutes);
 const database=process.env.DATABASE
 mongoose.connect(database).then(()=>{
     console.log("Database Connected")
