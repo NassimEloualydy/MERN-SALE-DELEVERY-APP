@@ -53,3 +53,54 @@ exports.login=async (req,res)=>{
     )
     return res.json({token,user:u[0]})
 }
+exports.logOut=async (req,res)=>{
+    const user=await User.findOneAndUpdate(
+        {_id:req.user._id},
+        {$set:{
+            status:'Dsconnected'
+        }},
+        {$new:true}
+    )
+    if(user)
+        return res.json({message:"User Logout with success !!"})
+}
+exports.updateMyAccount=async (req,res)=>{
+    const form=new formidable.IncomingForm()
+    form.keepExtentions=true
+    form.parse(req,async (err,fields,files)=>{
+        const {first_name,last_name,email,pw,phone}=fields
+        var d=await User.find().select("-photo").and([{first_name},{last_name},{_id:{$ne:req.user._id}}])
+        if(d.length!=0)
+            return  res.status(400).json({err:"Please the First Name and the last name is already exist !!"})
+        d=await User.find().select("-photo").and([{email},{_id:{$ne:req.user._id}}])
+        if(d.length!=0)
+            return  res.status(400).json({err:"Please the email is already exist !!"})        
+        d=await User.find().select("-photo").and([{phone},{_id:{$ne:req.user._id}}])
+        if(d.length!=0)
+            return  res.status(400).json({err:"Please the phone is already exist !!"})        
+        const data_updated={
+            first_name,last_name,email,phone
+        }
+        if(pw!=''){
+            const salt=await bcrypt.genSalt(10)
+            const hashed_pw=await bcrypt.hash(pw,salt)
+            console.log(hashed_pw)
+            data_updated.pw=hashed_pw
+        }
+        if(files.photo){
+            data_updated.photo={
+                contentType:files.photo.type,
+                data:fs.readFileSync(fields.photo.path)
+            }
+        }
+        const u=await User.findOneAndUpdate(
+            {_id:req.user._id},
+            {$set:
+                data_updated
+            },{$new:true}
+        )
+        if(u)
+            return res.json({message:"Your Account is updated successfully !!"})
+
+    })
+}
