@@ -29,7 +29,7 @@
   border-radius: 5px;
 }
 .swiper-pagination{
-  margin-top: 50px !important;
+  margin-top: 80px !important;
 }
 .scrolTextContainer:nth-child(2){
   position: relative;
@@ -236,3 +236,4 @@
   
   
 }
+

@@ -21,7 +21,7 @@ exports.signInUser=async (req,res)=>{
         const salt=await bcrypt.genSalt(10)
         const hashed_pw=await bcrypt.hash(pw,salt)
         const user=await User.create({
-            first_name,last_name,email,phone,status:'Disconnected',role:'Admin',
+            first_name,last_name,email,phone,status:'Disconnected',role:'Saller',
             pw:hashed_pw,
             photo:{
                 data:fs.readFileSync(files.photo.path),

@@ -38,12 +38,13 @@ const Menu = () => {
 
 {!user.first_name && (
       <>
-         <div onClick={NavigateUrl.bind(this,"/SignIn")} className="itemMenu">Sign In</div>
+         <div onClick={NavigateUrl.bind(this,"/signIn")} className="itemMenu">Sign In</div>
          <div onClick={NavigateUrl.bind(this,"/login")} className="itemMenu">Login</div>
       </>
      )}
 {user.first_name && (
       <>
+     <div onClick={NavigateUrl.bind(this,"/products")} className="itemMenu">Products</div>     
      <div onClick={NavigateUrl.bind(this,"/your_account")} className="itemMenu">Your Account</div>     
      <div onClick={NavigateUrl.bind(this,"/Log Out")} className="itemMenu">Log Out</div>
       </>

@@ -7,7 +7,9 @@ const app=express()
 app.use(express.json())
 app.use(cors())
 const userRoutes=require("./routes/userRoutes")
+const productRoutes=require("./routes/productRoutes")
 app.use("/API/user",userRoutes);
+app.use("/API/product",productRoutes);
 const database=process.env.DATABASE
 mongoose.connect(database).then(()=>{
     console.log("Database Connected")
