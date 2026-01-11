@@ -8,6 +8,8 @@ app.use(express.json())
 app.use(cors())
 const userRoutes=require("./routes/userRoutes")
 const productRoutes=require("./routes/productRoutes")
+const orderRouters=require("./routes/orderRoutes")
+app.use("/API/order",orderRouters);
 app.use("/API/user",userRoutes);
 app.use("/API/product",productRoutes);
 const database=process.env.DATABASE
