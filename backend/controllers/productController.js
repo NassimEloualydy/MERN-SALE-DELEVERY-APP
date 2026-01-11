@@ -129,7 +129,7 @@ exports.getdata=async (req,res)=>{
     .populate([{
         path:'saller',
         model:"User",
-        select:['_id','first_name','last_name'],
+        select:['_id','first_name','last_name','phone','email'],
         match:{
             first_name:{$regex:'.*'+first_name_saller+'.*'},
             last_name:{$regex:'.*'+last_name_saller+'.*'}
@@ -141,12 +141,32 @@ exports.getdata=async (req,res)=>{
 }
 exports.getPhotoImage=async (req,res)=>{
     const _id=req.params._id
-    const photo_number=req.params.photo_number
-    const p=await Product.find({_id}).select()
-    if(p[0]){
-        if(photo_number=="main"){
-            res.set('contentType',p[0].photo.contentType)
-            return res.send(p[0].photo.data)
+    if(_id!="undefined"){
+
+        const photo_number=req.params.photo_number
+        const p=await Product.find({_id}).select()
+        if(p[0]){
+            if(photo_number=="main"){
+                res.set('contentType',p[0].photo.contentType)
+                return res.send(p[0].photo.data)
+            }
+            if(photo_number=="photo_1"){
+                res.set('contentType',p[0].photo_1.contentType)
+                return res.send(p[0].photo_1.data)
+            }
+            if(photo_number=="photo_2"){
+                res.set('contentType',p[0].photo_2.contentType)
+                return res.send(p[0].photo_2.data)
+            }
+            if(photo_number=="photo_3"){
+                res.set('contentType',p[0].photo_3.contentType)
+                return res.send(p[0].photo_3.data)
+            }
+            if(photo_number=="photo_4"){
+                res.set('contentType',p[0].photo_4.contentType)
+                return res.send(p[0].photo_4.data)
+            }
+            
         }
     }
 }

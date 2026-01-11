@@ -31,6 +31,12 @@
 .swiper-pagination{
   margin-top: 80px !important;
 }
+.photo-selected{
+  border: 2px solid black;
+  border-radius: 10px;
+  transition: all .3s;
+  
+}
 .scrolTextContainer:nth-child(2){
   position: relative;
   height: 75vh;
@@ -172,6 +178,17 @@
 .Icon_delete{
   color: #d62828;
   border-color: #d62828;
+  transition: .3s;
+  cursor: pointer;
+}
+.Icon_success:hover{
+    background-color: #2a9d8f;
+    color: white;
+    transition: .3s;
+  }
+  .Icon_success{
+  color: #2a9d8f;
+  border-color: #2a9d8f;
   transition: .3s;
   cursor: pointer;
 }

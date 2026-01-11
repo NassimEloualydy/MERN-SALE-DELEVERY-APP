@@ -7,8 +7,7 @@ import { useNavigate,useLocation } from 'react-router-dom';
 const ProductForm = () => {
     const Navigate=useNavigate();
     const location=useLocation()
-
-    const [product,setProduct]=useState({
+   const [product,setProduct]=useState({
         name:"",
         description:"",
         category:"",

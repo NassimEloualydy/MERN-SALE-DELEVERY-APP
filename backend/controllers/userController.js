@@ -64,6 +64,21 @@ exports.logOut=async (req,res)=>{
     if(user)
         return res.json({message:"User Logout with success !!"})
 }
+exports.getPhoto=async (req,res)=>{
+    const _id= req.params._id
+    try{
+        if(_id!="undefined"){
+            const u=await User.find({_id}).select()
+          
+            if(u)
+                {
+                    res.set("contentType",u[0].photo.contentType)
+                    return res.send(u[0].photo.data)
+                }
+            }
+    }catch{
+        console.log("Error")    }
+}
 exports.updateMyAccount=async (req,res)=>{
     const form=new formidable.IncomingForm()
     form.keepExtentions=true
@@ -85,7 +100,7 @@ exports.updateMyAccount=async (req,res)=>{
         if(pw!='' && pw!=undefined){
             const salt=await bcrypt.genSalt(10)
             const hashed_pw=await bcrypt.hash(pw,salt)
-            console.log(hashed_pw)
+           
             data_updated.pw=hashed_pw
         }
         
@@ -101,7 +116,6 @@ exports.updateMyAccount=async (req,res)=>{
                 data_updated
             },{$new:true}
         )
-        console.log(u.photo.data)
         if(u)
             return res.json({message:"Your Account is updated successfully !!"})
 

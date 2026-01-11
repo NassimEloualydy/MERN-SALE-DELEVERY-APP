@@ -6,14 +6,20 @@ import Menu from './Menu';
 import SwiperCore from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import { Navigation,Autoplay, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import "@coreui/coreui-pro/dist/css/coreui.min.css";
 
+import { Navigation,Autoplay, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import { CCol, CRow } from '@coreui/react'
+import { CDateRangePicker } from '@coreui/react-pro'
 const Products = () => {
     SwiperCore.use([Autoplay]);
     const [products,setProducts]=useState([])
     const Navigate=useNavigate()
     const [menu,setMenu]=useState(false);
     const [categories,setCategories]=useState([])
+    const productDetails=(data)=>{
+      Navigate("/productDetails",{state:data})
+    }
     const [product,setProduct]=useState({
         name:"",
         description:"",
@@ -111,7 +117,19 @@ const loadData=(data)=>{
                     <div className="col-md mt-2"><input type="text" name="category" onChange={handleChange} value={product.category}    placeholder='Category' className="form-control" /></div>
                     <div className="col-md mt-2"><input type="text" name="description" onChange={handleChange} value={product.description}    placeholder='Description' className="form-control" /></div>
                     <div className="col-md mt-2"><input type="text" name="price" onChange={handleChange} value={product.price}   placeholder='Price' className="form-control" /></div>
+                  
                 </div>
+                <row className="text-center">
+                  {/* <CRow>
+      <CCol className="mb-3" sm={7}>
+        <CDateRangePicker locale="en-US" timepicker 
+         onStartDateChange={(date) => console.log(date)}
+          onEndDateChange={(date) => console.log(date)}
+        />
+      </CCol>
+
+    </CRow> */}
+                </row>
                 <div className="row text-center">
                     <div className="col-md mt-2"><input type="text" name="rating" onChange={handleChange} value={product.rating}   placeholder='Rating' className="form-control" /></div>
                     <div className="col-md mt-2"><input type="text" name="status" onChange={handleChange} value={product.status}   placeholder='Status' className="form-control" /></div>
@@ -242,6 +260,7 @@ slidesPerView: 4,
                     src={`${BASE_URL}/product/getPhotoImage/main/${product._id}`}
                     alt=""
                     className="card-img-top img-main img-fluid imgProduct"
+                    onClick={productDetails.bind(this,product)}
                   />
 
                     <div className="card-title fw-bolder text-center">
